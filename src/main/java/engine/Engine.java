@@ -15,11 +15,14 @@ public class Engine {
             wrapperList.add(new Wrapper(view));
         }
         parent.setOnMouseClicked(mouseEvent -> {
+            boolean start = false;
             for(Wrapper wrapper : wrapperList){
                 if(wrapper.isActive()){
                     wrapper.off();
                 }else {
-                    wrapper.setOnMouseClicked(mouseEvent.getX(), mouseEvent.getY());
+                    if(!start) {
+                        start = wrapper.setOnMouseClicked(mouseEvent.getX(), mouseEvent.getY());
+                    }
                 }
             }
         });

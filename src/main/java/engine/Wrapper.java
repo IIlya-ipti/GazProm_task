@@ -22,9 +22,9 @@ public class Wrapper{
     }
 
 
-    public void setOnMouseClicked(double mouseX, double mouseY){
+    public boolean setOnMouseClicked(double mouseX, double mouseY){
         if(!contains(mouseX,mouseY))
-            return;
+            return false;
         mouseX -= imageView.getLayoutX();
         mouseY -= imageView.getLayoutY();
         if(!active) {
@@ -32,10 +32,13 @@ public class Wrapper{
             System.out.println(color);
             if(UtilityFunctions.TrueColor(color)) {
                 on();
+                return true;
             }
         }else{
             off();
+            return true;
         }
+        return false;
 
     }
 
