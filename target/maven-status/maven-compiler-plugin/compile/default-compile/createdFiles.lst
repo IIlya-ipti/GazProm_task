@@ -1,7 +1,8 @@
-engine\UtilityFunctions.class
-module-info.class
-engine\Animations.class
-com\example\gazprom\GazPromApp.class
 engine\Wrapper.class
 com\example\gazprom\PleaseProvideControllerClassName.class
 engine\Engine.class
+engine\UtilityFunctions.class
+module-info.class
+engine\Animations.class
+engine\Dialog.class
+com\example\gazprom\GazPromApp.class

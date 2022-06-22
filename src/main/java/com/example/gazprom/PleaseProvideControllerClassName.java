@@ -2,22 +2,39 @@ package com.example.gazprom;
 
 import engine.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.effect.Light;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class PleaseProvideControllerClassName implements Initializable {
+    private Engine engine;
 
     @FXML
     private ImageView Adugaia;
@@ -278,15 +295,26 @@ public class PleaseProvideControllerClassName implements Initializable {
     private Button Exit;
 
     @FXML
+    private ListView<String> list;
+
+
+    @FXML
     void ExitAction(ActionEvent event) {
         ((Stage)pane.getScene().getWindow()).close();
 
     }
 
+
+    @FXML
+    private Pane Total;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        new Engine(
+
+        engine = new Engine(
                 pane,
+                Total,
                 Sainkt_petersburg,
                 Adugaia,
                 Chechenskaya,
@@ -372,13 +400,25 @@ public class PleaseProvideControllerClassName implements Initializable {
                 Irkutsk,
                 Tuva
                 );
+        //list.getItems().addAll("Сила Сибири","Амурскй ГПЗ","...","...","...");
+        //list.setFixedCellSize(60);
     }
     public void Update(){
+
         Scene scene = pane.getScene();
-        double coeff = Math.min(scene.getWidth()/pane.getWidth(),scene.getHeight()/pane.getHeight());
+        //Marker marker = new Marker();
+        //marker.setParent(pane);
+
+        double width = scene.getWidth();
+        double height = scene.getHeight();
+        double coeff = Math.min(width/pane.getWidth(),height/pane.getHeight());
         pane.setScaleX(coeff);
         pane.setScaleY(coeff);
-        pane.setLayoutX(-pane.getBoundsInParent().getMinX());
-        pane.setLayoutY(-pane.getBoundsInParent().getMinY());
+        if(pane.getBoundsInParent().getMinX() != 0) {
+            pane.setLayoutX((int) (-1 * pane.getBoundsInParent().getMinX()));
+            pane.setLayoutY(-pane.getBoundsInParent().getMinY());
+        }
+        engine.update();
+
     }
 }

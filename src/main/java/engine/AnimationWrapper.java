@@ -12,26 +12,24 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public class Animations {
+public class AnimationWrapper implements Animation{
     private final ImageView imageView;
     private final DropShadow dropShadow2;
-    private final Light lighting;
     private final Timeline timelineActiveOnMouseClick;
     private final Timeline timelineDeactivateOnMouseClick;
     private final Timeline timelineActiveDialog;
     private final Timeline timelineDeactivateDialog;
-    private final Dialog dialog;
     private final List<Marker> markerList;
+    private final Dialog dialog;
 
-    Animations(ImageView imageView,Dialog dialog, List<Marker> markerList){
-        this.imageView = imageView;
-        this.markerList = markerList;
-        this.dialog = dialog;
+    AnimationWrapper(Wrapper wrapper){
+        this.imageView =    wrapper.getImageView();
+        this.markerList =   wrapper.getMarkerList();
+        this.dialog =       wrapper.getDialog();
         this.dropShadow2 = new DropShadow();
         dropShadow2.setOffsetY(0);
         dropShadow2.setOffsetX(0);
         dropShadow2.setRadius(0);
-        lighting = new Light.Point();
 
         imageView.setEffect(dropShadow2);
         timelineActiveOnMouseClick =        new Timeline();
@@ -42,11 +40,11 @@ public class Animations {
         timelineActiveDialog =              dialog.setOnDialog();
         timelineDeactivateDialog =          dialog.setOffDialog();
     }
+
     private void setActiveTimelineOnMouseClick(){
         KeyValue rad = new KeyValue(dropShadow2.radiusProperty(),20, Interpolator.LINEAR);
         KeyValue offX = new KeyValue(dropShadow2.offsetXProperty(),10,Interpolator.LINEAR);
-        KeyValue Light = new KeyValue(lighting.colorProperty(), Color.BLUEVIOLET,Interpolator.LINEAR);
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(200),rad,offX,Light);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(200),rad,offX);
         timelineActiveOnMouseClick.getKeyFrames().add(keyFrame);
     }
 
@@ -59,7 +57,9 @@ public class Animations {
             imageView.toBack();
         });
     }
-    public void on(){
+
+    @Override
+    public void on() {
         for(Marker marker: markerList){
             marker.getGroup().toFront();
             marker.getTimeLineOn().play();
@@ -67,12 +67,13 @@ public class Animations {
         timelineActiveOnMouseClick.play();
         timelineActiveDialog.play();
     }
-    public void off(){
+
+    @Override
+    public void off() {
         for(Marker marker: markerList){
             marker.getTimeLineOff().play();
         }
         timelineDeactivateOnMouseClick.play();
         timelineDeactivateDialog.play();
     }
-
 }

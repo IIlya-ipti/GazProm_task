@@ -1,24 +1,36 @@
 package engine;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Wrapper{
     private final Image oldColor;
     private final ImageView imageView;
-    private final Animations animation;
     private final double coefficient;
+    private final Dialog dialog;
+    private final List<Marker> markerList;
     private Image newColor;
     private boolean active;
+    private Animations animation;
+    private Pane parentPane;
 
-    Wrapper(ImageView imageView) {
+    Wrapper(ImageView imageView, Pane TotalPane) {
+        this.parentPane = (Pane) imageView.getParent();
+        this.dialog = new Dialog(TotalPane,imageView);
         this.oldColor = imageView.getImage();
         this.newColor = null;
         this.imageView = imageView;
         this.active = false;
-        this.animation = new Animations(imageView);
         this.coefficient = imageView.getImage().getHeight()/imageView.getImage().getWidth();
+        this.markerList = new ArrayList<>();
+
     }
 
 
@@ -28,14 +40,22 @@ public class Wrapper{
         mouseX -= imageView.getLayoutX();
         mouseY -= imageView.getLayoutY();
         if(!active) {
-            Color color = UtilityFunctions.getPixelColor(imageView,mouseX,mouseY);
-            System.out.println(color);
+            Color color = UtilityFunctions.getPixelColor(imageView,mouseX ,mouseY);
             if(UtilityFunctions.TrueColor(color)) {
-                on();
+                if(Engine.status == Status.ADMIN) {
+                    Marker marker = new Marker(this.parentPane);
+                    marker.setPosition(mouseX + imageView.getLayoutX(), mouseY + imageView.getLayoutY());
+                    markerList.add(marker);
+                }
+                if(Engine.status == Status.USER) {
+                    on();
+                }
                 return true;
             }
         }else{
-            off();
+            if(Engine.status == Status.USER) {
+                off();
+            }
             return true;
         }
         return false;
@@ -57,6 +77,31 @@ public class Wrapper{
         animation.off();
         active = false;
 
+    }
+
+    public Dialog getDialog() {
+        return dialog;
+    }
+
+    public Animations getAnimation() {
+        return animation;
+    }
+
+    public double getCoefficient() {
+        return coefficient;
+    }
+
+    public List<Marker> getMarkerList() {
+        return markerList;
+    }
+
+    public Pane getParentPane() {
+        return parentPane;
+    }
+
+    public void update(){
+        dialog.update();
+        this.animation = new Animations(imageView,dialog,markerList);
     }
 
     public Image getNewColor() {
