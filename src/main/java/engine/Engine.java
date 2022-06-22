@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,12 +16,11 @@ public class Engine {
     List<Wrapper> wrapperList = new ArrayList<>();
 
 
-    public Engine(Parent parent,Pane totalPane, ImageView... imageViews){
+    public Engine(Parent parent,Pane totalPane, ImageView... imageViews) throws MalformedURLException {
         for(ImageView view : imageViews){
             wrapperList.add(new Wrapper(view, totalPane));
         }
         parent.setOnMouseClicked(mouseEvent -> {
-            System.out.println(mouseEvent.getX());
             boolean start = false;
             for(Wrapper wrapper : wrapperList){
                 if(wrapper.isActive()){

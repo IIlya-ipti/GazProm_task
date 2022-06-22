@@ -76,13 +76,6 @@ public class Marker {
     }
 
 
-    public Timeline getTimeLineOff() {
-        return timeLineOff;
-    }
-    public Timeline getTimeLineOn(){
-        return timeLineOn;
-    }
-
     private Timeline setTimeline(Point2D endPos, double endScaleY, double endScaleX) {
         KeyValue rad = new KeyValue(group.layoutYProperty(), endPos.getY(), Interpolator.LINEAR);
         KeyValue sizeY = new KeyValue(group.scaleYProperty(), endScaleY, Interpolator.LINEAR);

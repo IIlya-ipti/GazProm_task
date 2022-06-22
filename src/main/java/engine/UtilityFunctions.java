@@ -1,6 +1,7 @@
 package engine;
 
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -92,4 +93,12 @@ public class UtilityFunctions {
         return new Pair<>(new Point2D(x1,y1),new Point2D(x2,y2));
     }
 
+    public static Point2D getCenterObject(Node node){
+        double radX = ( - node.getBoundsInParent().getMinX() + node.getBoundsInParent().getMaxX())/2;
+        double radY = ( - node.getBoundsInParent().getMinY() + node.getBoundsInParent().getMaxY())/2;
+        return new Point2D(
+                node.getBoundsInParent().getMinX() + radX,
+                node.getBoundsInParent().getMinY() + radY
+        );
+    }
 }

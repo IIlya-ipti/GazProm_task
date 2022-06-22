@@ -5,27 +5,23 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Light;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-import java.util.List;
-
-public class AnimationWrapper implements Animation{
+public class AnimationImageProject implements Animation{
+    private final Image oldColor;
+    private Image newColor;
     private final ImageView imageView;
     private final DropShadow dropShadow2;
     private final Timeline timelineActiveOnMouseClick;
     private final Timeline timelineDeactivateOnMouseClick;
-    private final Timeline timelineActiveDialog;
-    private final Timeline timelineDeactivateDialog;
-    private final List<Marker> markerList;
-    private final Dialog dialog;
 
-    AnimationWrapper(Wrapper wrapper){
-        this.imageView =    wrapper.getImageView();
-        this.markerList =   wrapper.getMarkerList();
-        this.dialog =       wrapper.getDialog();
+    AnimationImageProject(ImageProject imageProject){
+
+        this.imageView =   imageProject.getImageView();
+        this.oldColor = imageView.getImage();
+        this.newColor = null;
         this.dropShadow2 = new DropShadow();
         dropShadow2.setOffsetY(0);
         dropShadow2.setOffsetX(0);
@@ -37,8 +33,6 @@ public class AnimationWrapper implements Animation{
 
         setActiveTimelineOnMouseClick();
         setDeactivateTimelineOnMouseClick();
-        timelineActiveDialog =              dialog.setOnDialog();
-        timelineDeactivateDialog =          dialog.setOffDialog();
     }
 
     private void setActiveTimelineOnMouseClick(){
@@ -60,20 +54,22 @@ public class AnimationWrapper implements Animation{
 
     @Override
     public void on() {
-        for(Marker marker: markerList){
-            marker.getGroup().toFront();
-            marker.getTimeLineOn().play();
+        imageView.toFront();
+        UtilityFunctions.reColor(imageView);
+        if (this.newColor == null) {
+            this.newColor = imageView.getImage();
         }
         timelineActiveOnMouseClick.play();
-        timelineActiveDialog.play();
     }
 
     @Override
     public void off() {
-        for(Marker marker: markerList){
-            marker.getTimeLineOff().play();
-        }
+        imageView.setImage(oldColor);
         timelineDeactivateOnMouseClick.play();
-        timelineDeactivateDialog.play();
+    }
+
+    @Override
+    public void update() {
+        ;
     }
 }

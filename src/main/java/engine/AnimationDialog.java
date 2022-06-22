@@ -20,7 +20,6 @@ public class AnimationDialog implements Animation {
     private Timeline timelineDeactivateDialog;
 
     AnimationDialog(Dialog dialog){
-        update();
         this.pane =                     dialog.getPane();
         this.timelineActiveDialog =     setOnDialog();
         this.timelineDeactivateDialog = setOffDialog();
@@ -44,6 +43,7 @@ public class AnimationDialog implements Animation {
         return timeline;
     }
 
+    @Override
     public void update(){
         double ValX = pane.getScene().getWindow().getWidth();
         double ValY = pane.getScene().getWindow().getHeight();
@@ -68,7 +68,6 @@ public class AnimationDialog implements Animation {
 
     @Override
     public void on() {
-        update();
         timelineActiveDialog.play();
     }
 
