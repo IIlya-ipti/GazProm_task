@@ -1,6 +1,5 @@
 engine\AnimationMarkerImage.class
 engine\Wrapper.class
-com\example\gazprom\PleaseProvideControllerClassName.class
 engine\Engine.class
 engine\UserPath.class
 engine\UtilityFunctions.class
@@ -9,6 +8,7 @@ engine\MarkerImage.class
 engine\Animation.class
 engine\AnimationDialog.class
 engine\Status.class
+com\example\gazprom\Controller.class
 engine\ImageProject.class
 engine\AnimationImageProject.class
 engine\Dialog.class

@@ -9,12 +9,22 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class AnimationDialog implements Animation {
+
+    // start scales for image
     private int startX ;
     private int startY;
+
+    // end scales for image
     private int endX;
     private int endY ;
+
+    // parent pane of dialog
     private final Pane pane;
+
+
     private final ImageView imageView;
+
+    // this timelines for animation
     private Timeline timelineActiveDialog;
     private Timeline timelineDeactivateDialog;
 

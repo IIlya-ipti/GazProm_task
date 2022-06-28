@@ -71,6 +71,9 @@ public class UtilityFunctions {
         return 100 < (r + g + b) && (r + g + b) < 255 * 3 - 40;
     }
 
+    /*
+    * This function for class Marker (draw marker)
+    * */
     public static Pair<Point2D,Point2D> getPointCircleLine(Circle circle, Point2D point){
         double xc = circle.getLayoutX();
         double yc = circle.getLayoutY();

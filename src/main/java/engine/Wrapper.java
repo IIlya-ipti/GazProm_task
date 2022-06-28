@@ -42,19 +42,25 @@ public class Wrapper{
 
             // color is null or not
             if(UtilityFunctions.TrueColor(color)) {
+
+                // admin add new marker if admin click mouse
                 if(Engine.status == Status.ADMIN) {
+
+                    // add marker
                     markerList.add(new MarkerImage(
                             this.parentPane,
                             UserPath.CollegeOne,
                             mouseX + imageView.getLayoutX(),
                             mouseY + imageView.getLayoutY()));
                 }
+                // user start animation
                 if(Engine.status == Status.USER) {
                     on();
                 }
                 return true;
             }
         }else{
+            // user start end animation
             if(Engine.status == Status.USER) {
                 off();
             }
@@ -64,6 +70,9 @@ public class Wrapper{
 
     }
 
+    /*
+    * start on animations
+    * */
     public void on(){
         dialog.getAnimation().on();
         imageProject.getAnimation().on();
@@ -73,6 +82,9 @@ public class Wrapper{
         active = true;
     }
 
+    /*
+    * start off animations
+    * */
     public void off(){
         dialog.getAnimation().off();
         imageProject.getAnimation().off();
@@ -83,16 +95,21 @@ public class Wrapper{
 
     }
 
+    /*
+    * update all objects in the wrapper
+    * */
     public void update(){
         dialog.update();
         imageProject.update();
     }
 
-
     public boolean isActive(){
         return active;
     }
 
+    /*
+    * contains point or not in subject
+    * */
     public boolean contains(double x, double y){
         ImageView imageView = imageProject.getImageView();
 
