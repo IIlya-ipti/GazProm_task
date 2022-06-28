@@ -28,15 +28,15 @@ public class AnimationMarkerImage implements Animation{
 
     private void setTimeLineOn(){
         this.timeLineOn = setTimeline(endPos,
-                Interfaces.markerImageEnd.getY(),
-                Interfaces.markerImageEnd.getX()
+                MarkerImage.getActualUserPath().oldScale.getY(),
+                MarkerImage.getActualUserPath().oldScale.getX()
         );
     }
 
     private void setTimeLineOff(){
         this.timeLineOff = setTimeline(startPos,
-                Interfaces.markerImageStart.getY(),
-                Interfaces.markerImageStart.getX()
+                MarkerImage.getActualUserPath().startScale.getY(),
+                MarkerImage.getActualUserPath().startScale.getX()
         );
     }
 

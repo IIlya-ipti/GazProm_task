@@ -26,7 +26,11 @@ public class Wrapper{
         this.markerList = new ArrayList<>();
     }
 
-
+    /*
+    *
+    * if mouse click start animation
+    *
+    * */
     public boolean setOnMouseClicked(double mouseX, double mouseY){
         if(!contains(mouseX,mouseY))
             return false;
@@ -35,9 +39,13 @@ public class Wrapper{
         mouseY -= imageView.getLayoutY();
         if(!active) {
             Color color = UtilityFunctions.getPixelColor(imageView,mouseX ,mouseY);
+
+            // color is null or not
             if(UtilityFunctions.TrueColor(color)) {
                 if(Engine.status == Status.ADMIN) {
-                    markerList.add(new MarkerImage(this.parentPane,
+                    markerList.add(new MarkerImage(
+                            this.parentPane,
+                            UserPath.CollegeOne,
                             mouseX + imageView.getLayoutX(),
                             mouseY + imageView.getLayoutY()));
                 }

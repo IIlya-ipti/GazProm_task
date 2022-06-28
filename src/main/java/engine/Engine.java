@@ -16,7 +16,7 @@ public class Engine {
     List<Wrapper> wrapperList = new ArrayList<>();
 
 
-    public Engine(Parent parent,Pane totalPane, ImageView... imageViews) throws MalformedURLException {
+    public Engine(Parent parent,Pane totalPane, ImageView... imageViews){
         for(ImageView view : imageViews){
             wrapperList.add(new Wrapper(view, totalPane));
         }
@@ -36,6 +36,13 @@ public class Engine {
     public void update(){
         for(Wrapper wrapper : wrapperList){
             wrapper.update();
+        }
+    }
+    public void activeOff(){
+        for(Wrapper wrapper : wrapperList){
+            if(wrapper.isActive()){
+                wrapper.off();
+            }
         }
     }
 }

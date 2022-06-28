@@ -61,7 +61,6 @@ public class Marker {
         group.setScaleX(endScaleX);
         group.setScaleY(endScaleY);
         this.endPos =  new Point2D(startPos.getX(),startPos.getY() - (group.getBoundsInParent().getMaxY() - posDownCenter.getY()));
-        System.out.println(posDownCenter);
 
         group.setScaleX(startScaleX);
         group.setScaleY(startScaleY);
